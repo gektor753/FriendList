@@ -55,14 +55,15 @@ let auth = new Vue({
             webAuth.authorize();
         },
         logout() {
+            console.log(1)
             return new Promise((resolve) => {
                 localStorage.removeItem('access_token')
                 localStorage.removeItem('id_token')
                 localStorage.removeItem('expires_at')
                 localStorage.removeItem('user')
                 webAuth.logout({
-                    returnTo: 'http://SOMEWHERE.ELSE.com', // Allowed logout URL listed in dashboard
-                    clientID: 'your_auth0_client_id', // Your client ID
+                    returnTo: 'localhost:8080/callback', // Allowed logout URL listed in dashboard
+                    clientID: '7735083', // Your client ID
                 })
                 resolve()
             })
@@ -78,20 +79,16 @@ let auth = new Vue({
             return new Date().getTime() < this.expiresAt
         },
         handleAuthentication() {
-            console.log(1)
             return new Promise((resolve, reject) => {
-                console.log(2)
                 webAuth.parseHash((err, authResult) => {
-                    console.log(err, authResult)
                     if (authResult && authResult.accessToken) {
                         this.expiresAt = authResult.expiresIn
                         this.accessToken = authResult.accessToken
+                        this.token = authResult.idToken
                         this.user = authResult.idTokenPayload
-                        console.log(4)
                         resolve()
 
                     } else if (err) {
-                        console.log(5, err)
                         this.logout()
                         reject(err)
                     }

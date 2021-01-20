@@ -1,6 +1,6 @@
 <template>
   <div id="logoutButton">
-    <button @click="$auth.logout()">Зайти в ВК</button>
+    <button @click="$auth.logout()">Выйти из ВК</button>
   </div>
 </template>
 
