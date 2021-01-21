@@ -1,10 +1,10 @@
 import auth0 from 'auth0-js'
 import Vue from 'vue'
-
+import axios from "axios";
 // exchange the object with your own from the setup step above.
 let webAuth = new auth0.WebAuth({
     domain: 'https://oauth.vk.com/',
-    clientID: '7735083',
+    clientID: '7735916',
     // make sure this line is contains the port: 8080
     redirectUri: 'http://localhost:8080/callback',
     responseType: 'token',
@@ -50,33 +50,39 @@ let auth = new Vue({
     methods: {
         login() {
             webAuth.authorize()
+
         },
         test() {
             webAuth.authorize();
         },
         logout() {
-            console.log(1)
+
             return new Promise((resolve) => {
+
+
+
                 localStorage.removeItem('access_token')
                 localStorage.removeItem('id_token')
                 localStorage.removeItem('expires_at')
                 localStorage.removeItem('user')
-                webAuth.logout({
-                    returnTo: 'localhost:8080/callback', // Allowed logout URL listed in dashboard
-                    clientID: '7735083', // Your client ID
-                })
+
                 resolve()
             })
         },
         getU() {
 
-             console.log(auth.user)
+             console.log(localStorage.accessToken)
         },
         isSet(){
             setTimeout(this.getU,3000)
         },
         isAuthenticated() {
-            return new Date().getTime() < this.expiresAt
+            if(localStorage.accessToken === undefined){
+                return false
+            }
+            else {
+                return true
+            }
         },
         handleAuthentication() {
             return new Promise((resolve, reject) => {
@@ -102,6 +108,16 @@ let auth = new Vue({
 export default {
     install: function(Vue) {
         Vue.prototype.$auth = auth
-    }
+    },
+
+    out: function (){
+        axios
+            .get('http://api.vk.com/oauth/logout')
+            .then(() => this.$router.push({ name: 'Home' }))
+
+    },
+    isAuthenticated() {
+        return localStorage.getItem('access_token') !== null ;
+    },
 }
 

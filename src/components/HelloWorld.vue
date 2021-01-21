@@ -1,3 +1,4 @@
+
 <template>
 <div id="enterButton">
   <button @click="$auth.login()">Зайти в ВК</button>
@@ -6,16 +7,20 @@
 
 <script>
 import auth from "@/auth";
-
 export default {
   name: 'HelloWorld',
   data(){
-    return {
-      auth
 
+    return {
+      auth,
+      logState:0,
     }
   },
-
+  methods:{
+    forceRenderLog() {
+      this.logState +=1
+    }
+  }
 }
 </script>
 
