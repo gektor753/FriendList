@@ -1,7 +1,7 @@
 
 <template>
 <div id="enterButton">
-  <button @click="$auth.login()">Зайти в ВК</button>
+  <button @click="auth.login()">Зайти в ВК</button>
 </div>
 </template>
 

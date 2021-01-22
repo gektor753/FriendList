@@ -3,13 +3,18 @@
 </template>
 
 <script>
-
+import auth from "@/auth";
 export default {
 
 name: "Callback.vue",
+  data() {
+    return {
+      auth
+    }
+  },
   mounted() {
 
-    this.$auth.handleAuthentication().then(() => {
+    this.auth.handleAuthentication().then(() => {
       this.$router.push({ name: 'Home' })
 
     })

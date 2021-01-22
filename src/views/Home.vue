@@ -1,15 +1,17 @@
 <template>
   <div>
-    {{homeState}}
+    {{isAuth}}
     <div class="Home">Home</div>
     <img alt="Vue logo" src="../assets/logo.png">
     <div v-if="auth.isAuthenticated()">
+       <logout
+       v-on:forceRender="forceRenderHome()"
+       />
 
-       <logout/>
-      <button @click="forceRenderHome()">click</button>
     </div>
   <div v-else>
-    <HelloWorld/>
+        <HelloWorld/>
+
   </div>
   </div>
 
@@ -31,20 +33,21 @@ export default {
   data(){
     return {
       auth,
-      homeState:0,
+      isAuth:false,
 
     }
   },
   mounted() {
     console.log(auth.isAuthenticated());
+
   },
   beforeUpdate() {
     console.log('render');
   },
   methods:{
     forceRenderHome() {
-      this.homeState +=1
-      console.log(this.homeState)
+      this.isAuth = true
+      console.log(this.isAuth)
     }
   }
 }
