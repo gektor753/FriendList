@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     console.log(auth.isAuthenticated());
-
   },
   beforeUpdate() {
     console.log('render');

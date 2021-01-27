@@ -8,9 +8,15 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+  <script type="text/javascript">
+      let script = document.createElement('SCRIPT');
+      script.src = "https://api.vk.com/method/friends.get?access_token=85c592eac97a44c701738518cb623f5b31207802cf4f7f17400cd872e928df16ed5066a4af271d9fc0506&v=5.126&callback=callbackFunc";
+
+      document.getElementsByTagName("head")[0].appendChild(script);
+      function callbackFunc(result) {
+          console.log(result)
+      }
+  </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

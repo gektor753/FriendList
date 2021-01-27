@@ -35,7 +35,7 @@ export default {
         })
     },
     getU() {
-        console.log(localStorage.accessToken)
+        console.log(localStorageServices.getUser())
     },
     isSet() {
         setTimeout(this.getU, 3000)

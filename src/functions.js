@@ -1,9 +1,10 @@
 import axios from "axios";
 import localStorageServices from "@/./localStorageServices";
-let accessToken = localStorageServices.getAccessToken();
+
 
 export function getFriendList(){
+    let accessToken = localStorageServices.getAccessToken();
     axios
-        .get(`https://api.vk.com/method/friends.get&count=5&access_token=${accessToken}&v=V=5.126`,{crossDomain:true})
+        .get(`https://api.vk.com/method/friends.get?access_token=${accessToken}&v=5.126`)
         .then(response => (this.friendList = response.data))
 }
